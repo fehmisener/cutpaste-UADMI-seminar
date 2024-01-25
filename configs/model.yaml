@@ -1,0 +1,10 @@
+split_dir: ./data/splits
+target_size: !<tag:yaml.org,2002:seq> [256, 256]
+cutpaste_type: binary
+
+momentum: 0.9
+learning_rate: 0.03
+weight_decay: 0.00003
+
+batch_size: 96
+num_epochs: 256
