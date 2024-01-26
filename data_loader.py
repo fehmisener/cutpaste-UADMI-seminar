@@ -73,8 +73,8 @@ class BrainMRI(Dataset):
             self.normal_start_idx = len(self.image_names)
             self.image_names.extend(normal_test_paths)
             print(
-                f"Using {self.normal_start_idx} abnormal images."
-                f"and {len(self.image_names) - self.normal_start_idx} normal images "
+                f"Using {self.normal_start_idx} abnormal images "
+                f"and {len(self.image_names) - self.normal_start_idx} normal images. "
                 f"Total {len(self.image_names)} images for testing."
             )
 
