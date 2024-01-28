@@ -1,6 +1,8 @@
+output_dir: ./results
 split_dir: ./data/splits
+
+cutpaste_type: 3way
 target_size: !<tag:yaml.org,2002:seq> [256, 256]
-cutpaste_type: binary
 
 momentum: 0.9
 learning_rate: 0.03
