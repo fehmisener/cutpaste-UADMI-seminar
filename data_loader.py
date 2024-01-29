@@ -34,11 +34,13 @@ class BrainMRI(Dataset):
         mode="train",
         cutpaste_type="binary",
         data_display_mode=False,
+        localization=False,
     ):
         self.mode = mode
         self.size = size
         self.split_dir = split_dir
         self.pathology = pathology
+        self.localization = localization
         self.cutpaste = CutPaste(
             type=cutpaste_type, data_display_mode=data_display_mode
         )
@@ -46,7 +48,7 @@ class BrainMRI(Dataset):
             [transforms.Resize(size), transforms.ToTensor()]
         )
 
-        if self.mode == "train":
+        if self.mode == "train" or self.localization:
             # Data train mode
             train_files_ixi = pd.read_csv(
                 os.path.join(split_dir, "ixi_normal_train.csv")
