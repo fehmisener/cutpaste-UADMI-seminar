@@ -1,0 +1,77 @@
+{
+    "Absent Septum": {
+        "ROC AUC": 0.3448275862068965,
+        "Dice Score": 0.12121212482452393,
+        "Average Precision": 0.07125000000000001
+    },
+    "Craniatomy": {
+        "ROC AUC": 0.853448275862069,
+        "Dice Score": 0.5245901346206665,
+        "Average Precision": 0.7883989545194787
+    },
+    "Dural": {
+        "ROC AUC": 0.771551724137931,
+        "Dice Score": 0.35555556416511536,
+        "Average Precision": 0.5297328119908765
+    },
+    "EA Mass": {
+        "ROC AUC": 0.6482758620689655,
+        "Dice Score": 0.25641027092933655,
+        "Average Precision": 0.2778195488721804
+    },
+    "Edema": {
+        "ROC AUC": 0.7749546279491832,
+        "Dice Score": 0.5671641826629639,
+        "Average Precision": 0.6915162178999754
+    },
+    "Encephalomalacia": {
+        "ROC AUC": 0.5517241379310345,
+        "Dice Score": 0.12121212482452393,
+        "Average Precision": 0.165
+    },
+    "Enlarged Ventricles": {
+        "ROC AUC": 0.5706896551724138,
+        "Dice Score": 0.5797101259231567,
+        "Average Precision": 0.4974135536034143
+    },
+    "Intraventricular": {
+        "ROC AUC": 0.603448275862069,
+        "Dice Score": 0.12121212482452393,
+        "Average Precision": 0.54
+    },
+    "Lesions": {
+        "ROC AUC": 0.8410794602698651,
+        "Dice Score": 0.6133333444595337,
+        "Average Precision": 0.8254176754954115
+    },
+    "Mass": {
+        "ROC AUC": 0.7451274362818591,
+        "Dice Score": 0.6133333444595337,
+        "Average Precision": 0.7290471142938063
+    },
+    "Posttreatment": {
+        "ROC AUC": 0.8467432950191571,
+        "Dice Score": 0.756302535533905,
+        "Average Precision": 0.9049763961675746
+    },
+    "Resection": {
+        "ROC AUC": 0.8275862068965517,
+        "Dice Score": 0.4313725531101227,
+        "Average Precision": 0.8028277426673149
+    },
+    "Sinus": {
+        "ROC AUC": 0.5977011494252873,
+        "Dice Score": 0.17142857611179352,
+        "Average Precision": 0.2564102564102564
+    },
+    "WML": {
+        "ROC AUC": 0.7241379310344828,
+        "Dice Score": 0.2926829159259796,
+        "Average Precision": 0.37178434592227694
+    },
+    "Other": {
+        "ROC AUC": 0.6954022988505747,
+        "Dice Score": 0.2926829159259796,
+        "Average Precision": 0.4817049808429118
+    }
+}
