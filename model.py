@@ -71,7 +71,7 @@ class _RestNet18(nn.Module):
     def __init__(self, head_layer_count=2, num_classes=3):
         super(_RestNet18, self).__init__()
         self.resnet18 = resnet18(weights=ResNet18_Weights.IMAGENET1K_V1)
-        
+
         last_layer = 512
         projection_layers = []
         for num_neurons in [512] * head_layer_count + [128]:
@@ -80,9 +80,8 @@ class _RestNet18(nn.Module):
             projection_layers.append(nn.ReLU(inplace=True))
             last_layer = num_neurons
 
-        head = nn.Sequential(*projection_layers)
         self.resnet18.fc = nn.Identity()
-        self.head = head
+        self.head = nn.Sequential(*projection_layers)
         self.out = nn.Linear(last_layer, num_classes)
 
     def forward(self, x):
