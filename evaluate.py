@@ -1,7 +1,7 @@
 import torch
 from sklearn.neighbors import KernelDensity
-from sklearn.metrics import roc_curve, auc
-
+from sklearn.metrics import roc_curve, auc, average_precision_score
+from torchmetrics.classification import Dice
 import matplotlib.pyplot as plt
 
 from pathlib import Path
@@ -27,11 +27,11 @@ class Evaluator:
         labels = []
         embeds = []
         with torch.no_grad():
-            for x, label in self.test_data_loader:
-                embed, _ = self.model(x)
-
+            for data, label in self.test_data_loader:
+                embed, _ = self.model(data)
                 embeds.append(embed.cpu())
                 labels.append(label.cpu())
+                del embed, _
 
             labels = torch.cat(labels)
             embeds = torch.cat(embeds)
@@ -39,9 +39,16 @@ class Evaluator:
             self.gde.fit(self.model.embeds.cpu())
             scores = self._predict(embeds)
 
+            dice = Dice(average="micro")
+            dice_score = dice(torch.from_numpy(scores), labels)
+            print(f"Dice score: {dice_score:.3f}")
+
+            ap_score = average_precision_score(labels, torch.from_numpy(scores))
+            print(f"Average precision: {ap_score:.3f}")
+
             fpr, tpr, roc_auc = self.calculate_roc(scores, labels)
             self.plot_roc(fpr, tpr, roc_auc, self.pathology, self.output_dir)
-            return roc_auc
+            return roc_auc, dice_score, ap_score
 
     def _predict(self, embeddings):
         scores = self.gde.score_samples(embeddings)
@@ -68,4 +75,3 @@ class Evaluator:
         image_path = Path(save_path) / f"roc_{pathology}.png"
         plt.savefig(image_path)
         plt.close()
-
