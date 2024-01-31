@@ -15,6 +15,9 @@ pip install -r requirements.txt
 
 Download and extract the data
 
+> **Note**
+> Ensure that the data folder is located in the same directory as the project and is configured appropriately according to the [model.yaml](configs/model.yaml) configuration file.
+
 ```bash
 wget <link of the data>
 unzip data.zip
@@ -25,11 +28,9 @@ unzip data.zip
 The tests were conducted based on the parameters outlined in the table below.
 
 | **Epoch Count** | **Batch Size** | **Learning Rate** | **Momentum** | **Input Size** | **Weight Decay** | **Algorithm**  |
-|-----------------|----------------|-------------------|--------------|----------------|------------------|----------------|
+| --------------- | -------------- | ----------------- | ------------ | -------------- | ---------------- | -------------- |
 | 256             | 96             | 0.03              | 0.9          | 256x256        | 0.00003          | 3-Way CutPaste |
 
 ![Algorithm Evaluation Results](results/evaluation_results.png "Algorithm Evaluation Results")
 
 Comprehensive ROC Curve figures and detailed results for each pathology are available in the [results folder](results/).
-
-
