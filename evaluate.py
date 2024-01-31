@@ -8,6 +8,23 @@ from pathlib import Path
 
 
 class Evaluator:
+    """
+    Class for evaluating a model on test data and generating performance metrics.
+
+    Parameters:
+        - model: The model to be evaluated.
+        - device: The device on which the evaluation should be performed.
+        - pathology: The pathology or category being evaluated.
+        - test_data_loader: DataLoader for the test data.
+        - output_dir: Directory to save evaluation results and plots (default is "./results").
+
+    Methods:
+        - evaluate(): Evaluates the model on the test data and computes performance metrics.
+        - calculate_roc(scores, labels): Computes ROC curve and AUC for the given scores and labels.
+        - plot_roc(fpr, tpr, roc_auc, pathology, save_path): Plots and saves the ROC curve.
+
+    """
+
     def __init__(
         self,
         model,
@@ -24,6 +41,13 @@ class Evaluator:
         self.gde = KernelDensity(kernel="gaussian", bandwidth=1)
 
     def evaluate(self):
+        """
+        Evaluates the model on the test data and computes performance metrics.
+
+        Returns:
+            tuple: A tuple containing ROC AUC, Dice score, and Average Precision score.
+
+        """
         labels = []
         embeds = []
         with torch.no_grad():
@@ -56,6 +80,17 @@ class Evaluator:
         return scores
 
     def calculate_roc(self, scores, labels):
+        """
+        Computes ROC curve and AUC for the given scores and labels.
+
+        Parameters:
+            scores (numpy.ndarray): Predicted scores.
+            labels (torch.Tensor): True labels.
+
+        Returns:
+            tuple: A tuple containing False Positive Rate (fpr), True Positive Rate (tpr), and ROC AUC.
+
+        """
         fpr, tpr, _ = roc_curve(labels, scores)
         roc_auc = auc(fpr, tpr)
 

@@ -7,7 +7,52 @@ from torchvision.models import resnet18, ResNet18_Weights
 
 
 class CutPasteNet(pl.LightningModule):
+    """
+    CutPasteNet is a PyTorch Lightning module for image classification tasks,
+    specifically designed to work with the Cut-Paste method of anomaly detection.
+    It inherits from pl.LightningModule and encapsulates a ResNet18-based model
+    with customizable head layers and class count. The implementation is based on
+    the principles outlined in the paper "CutPaste: Self-Supervised Learning for Anomaly
+    Detection and Localization"
+
+    Attributes:
+        config (dict): A configuration dictionary containing training parameters.
+        model (_RestNet18): An instance of a ResNet18-based model.
+        criterion (torch.nn.Module): The loss function (CrossEntropyLoss).
+        embeds (list): A list to store embeddings (empty initially).
+
+    Args:
+        config (dict): Configuration settings, including learning rate and momentum.
+        head_layer_count (int): The number of head layers in the ResNet model. Default is 2.
+        num_classes (int): The number of classes for classification. Default is 2.
+
+    Methods:
+        configure_optimizers: Sets up the optimizer for training.
+        forward: Defines the forward pass of the model.
+        training_step: Implements a single training step.
+        on_train_end: Actions to perform at the end of each training epoch.
+
+    References:
+        - CutPaste: Self-Supervised Learning for Anomaly Detection and Localization
+          https://arxiv.org/abs/2104.04015
+        - PyTorch Lightning
+          https://pytorch-lightning.readthedocs.io/en/latest/
+        - ResNet18
+          https://pytorch.org/vision/stable/models.html#torchvision.models.resnet18
+    """
+
     def __init__(self, config, head_layer_count=2, num_classes=2):
+        """
+        Initializes the CutPasteNet model with the given configuration.
+
+        Args:
+            config (dict): Configuration settings, including learning rate and momentum.
+            head_layer_count (int, optional): The number of head layers in the ResNet model. Defaults to 2.
+            num_classes (int, optional): The number of classes for classification. Defaults to 2.
+
+        Returns:
+            None
+        """
         super().__init__()
 
         if torch.backends.mps.is_available():
@@ -27,6 +72,16 @@ class CutPasteNet(pl.LightningModule):
         self.embeds = []
 
     def configure_optimizers(self):
+        """
+        Sets up the optimizer for the model. This method is used by PyTorch Lightning
+        to get the optimizers and learning rate schedulers.
+
+        Args:
+            None
+
+        Returns:
+            The configured optimizer (and optionally, the learning rate scheduler).
+        """
         optimizer = optim.SGD(
             self.model.parameters(),
             lr=self.config["learning_rate"],
@@ -39,6 +94,15 @@ class CutPasteNet(pl.LightningModule):
         return [optimizer], [scheduler]
 
     def forward(self, x):
+        """
+        Defines the forward pass of the model.
+
+        Args:
+            x (torch.Tensor): Input tensor containing the data.
+
+        Returns:
+            The output of the model given the input x.
+        """
         embeds, logits = self.model(x)
         return embeds, logits
 

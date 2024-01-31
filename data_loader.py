@@ -12,20 +12,30 @@ from joblib import Parallel, delayed
 from pathlib import Path
 
 
-class Repeat(Dataset):
-    def __init__(self, org_dataset, new_length):
-        self.org_dataset = org_dataset
-        self.org_length = len(self.org_dataset)
-        self.new_length = new_length
-
-    def __len__(self):
-        return self.new_length
-
-    def __getitem__(self, idx):
-        return self.org_dataset[idx % self.org_length]
-
-
 class BrainMRI(Dataset):
+    """
+    Dataset class for loading brain MRI images.
+
+    Parameters:
+        - split_dir (str): The directory containing split information and CSV files.
+        - pathology (str, optional): The pathology of the images (default is None).
+        - size (tuple, optional): The size to which images should be resized (default is (256, 256)).
+        - mode (str, optional): The mode of the dataset ('train' or 'test', default is 'train').
+        - cutpaste_type (str, optional): The type of cut-paste augmentation (default is 'binary').
+        - data_display_mode (bool, optional): Display mode for cut-paste data augmentation (default is False).
+            If True, a rectangular border is added to the augmented image.
+        - localization (bool, optional): Localization mode (default is False).
+
+    Methods:
+        -  __init__(): Initializes the BrainMRI dataset.
+        - __len__(): Returns the total number of images in the dataset.
+        - __getitem__(idx): Returns an image and its corresponding label based on the index.
+
+    References:
+        - FastMRI: An Open Dataset and Benchmarks for Accelerated MRI https://fastmri.med.nyu.edu/
+        - IXI Dataset https://brain-development.org/ixi-dataset/
+    """
+
     def __init__(
         self,
         split_dir: str,
@@ -96,6 +106,26 @@ class BrainMRI(Dataset):
 
 
 class MVTecAT(Dataset):
+    """
+    Dataset class for loading MVTec Anomaly Detection dataset images.
+
+    Parameters:
+        - root_dir (str): The root directory of the dataset.
+        - defect_name (str): The name of the defect category.
+        - size (tuple, optional): The size to which images should be resized (default is (256, 256)).
+        - mode (str, optional): The mode of the dataset ('train' or 'test', default is 'train').
+        - cutpaste_type (str, optional): The type of cut-paste augmentation (default is 'binary').
+        - data_display_mode (bool, optional): Display mode for cut-paste data augmentation (default is False).
+
+    Methods:
+        - __init__(): Initializes the MVTecAT dataset.
+        - __len__(): Returns the total number of images in the dataset.
+        - __getitem__(idx): Returns an image and its label based on the index.
+
+    References:
+        - MVTec Anomaly Detection Dataset https://www.mvtec.com/company/research/datasets/mvtec-ad/
+
+    """
 
     def __init__(
         self,
@@ -148,5 +178,15 @@ class MVTecAT(Dataset):
 
 
 def collate_function(batch):
+    """
+    Collate function for custom batch processing.
+
+    Parameters:
+        - batch (list): A list of batch items.
+
+    Returns:
+        - list: A list of torch tensors containing the collated batch.
+
+    """
     img_types = list(zip(*batch))
     return [torch.stack(imgs) for imgs in img_types]

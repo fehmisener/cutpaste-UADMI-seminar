@@ -6,6 +6,29 @@ from PIL import ImageDraw
 
 
 class CutPaste(object):
+    """
+    Class for performing cut-paste data augmentation on images.
+
+    Parameters:
+        - type (str, optional): The type of cut-paste augmentation ('binary' or '3way', default is 'binary').
+        - data_display_mode (bool, optional): Display mode for additional border visualization (default is False).
+
+    Attributes:
+        - type (str): The type of cut-paste augmentation.
+        - data_display_mode (bool): Display mode for additional border visualization.
+        - transform (transforms.ColorJitter): Color jitter transformation for patch augmentation.
+
+    Methods:
+        - crop_and_paste_patch(image, patch_w, patch_h, rotation=False): Crops and pastes a patch onto the image.
+        - cutpaste(image, area_ratio=(0.02, 0.15), aspect_ratio=((0.3, 1), (1, 3.3))): Performs cut-paste augmentation.
+        - cutpaste_scar(image, width=[2, 16], length=[10, 25], rotation=(-45, 45)): Performs cut-paste scar augmentation.
+        - __call__(image): Calls the cut-paste augmentation based on the specified type.
+
+    References:
+        - LilitYolyan/GitHub https://github.com/LilitYolyan/CutPaste/blob/main/cutpaste.py
+
+    """
+
     def __init__(self, type="binary", data_display_mode=False):
         self.type = type
         self.data_display_mode = data_display_mode
@@ -14,6 +37,18 @@ class CutPaste(object):
         )
 
     def crop_and_paste_patch(self, image, patch_w, patch_h, rotation=False):
+        """
+        Crops a patch from the image and pastes it back at a random location.
+
+        Parameters:
+            - image (PIL.Image.Image): The input image.
+            - patch_w (int): Width of the patch.
+            - patch_h (int): Height of the patch.
+            - rotation (tuple, optional): Range of rotation angles (default is False).
+
+        Returns:
+            - PIL.Image.Image: The image with the cropped and pasted patch.
+        """
         org_w, org_h = image.size
         mask = None
 
