@@ -34,3 +34,13 @@ The tests were conducted based on the parameters outlined in the table below.
 ![Algorithm Evaluation Results](results/evaluation_results.png "Algorithm Evaluation Results")
 
 Comprehensive ROC Curve figures and detailed results for each pathology are available in the [results folder](results/).
+
+### CutPaste Augmentation
+
+![CutPaste augmentation on Brain MRI](results/cutpaste_augmentation.png)
+
+### Prediction with Overlayed GradCAM
+
+![Prediction on anomaly brain mri](results/anomaly_data.png)
+
+![Prediction on normal brain mri](results/normal_data.png)
