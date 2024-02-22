@@ -1,13 +1,13 @@
 # UADMI Seminar Project - CutPaste Implementation
 
-This project is the implementation of ["CutPaste: Self-Supervised Learning for Anomaly Detection and Localization" ](https://arxiv.org/abs/2104.04015) within the scope of the Master-Seminar: Unsupervised Anomaly Detection in Medical Imaging (IN2107, IN45010) seminar course.
+This project is the implementation of ["CutPaste: Self-Supervised Learning for Anomaly Detection and Localization" ](https://arxiv.org/abs/2104.04015) for the detection of brain anomalies within the scope of the Master-Seminar: Unsupervised Anomaly Detection in Medical Imaging (IN2107, IN45010) seminar course.
 
 ## Project Setup
 
-First you have to initialize environment
+First, you have to initialize the environment
 
 > **Note**
-> Using virtual environment would be better
+> Using a virtual environment would be better
 
 ```bash
 pip install -r requirements.txt
@@ -22,6 +22,20 @@ Download and extract the data
 wget <link of the data>
 unzip data.zip
 ```
+
+## Dataset
+
+This project utilizes two distinct datasets for training.
+
+1. **fastMRI Dataset**
+   - Source: [fastMRI](https://fastmri.med.nyu.edu/)
+   - Description: The fastMRI dataset comprises MRI images that have been collected using accelerated MRI techniques, allowing for faster acquisition times.
+   - Number of Images: 130
+   
+2. **IXI Dataset**
+   - Source: [IXI Dataset](https://brain-development.org/ixi-dataset/)
+   - Description: The IXI dataset consists of brain MRI images collected from the IXI project, providing a diverse set of images for analysis and processing.
+   - Number of Images: 581
 
 ## Results
 
