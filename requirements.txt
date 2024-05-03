@@ -20,7 +20,7 @@ fsspec==2023.12.2
 google-auth==2.27.0
 google-auth-oauthlib==1.2.0
 grpcio==1.60.0
-idna==3.6
+idna==3.7
 imageio==2.33.1
 ipykernel==6.29.0
 ipython==8.20.0
